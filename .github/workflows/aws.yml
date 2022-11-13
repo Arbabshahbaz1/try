@@ -92,3 +92,21 @@ jobs:
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
+        var config = new AWS.Config({
+  accessKeyId: "MYACCESSKEY", secretAccessKey: "MYSECRETYKEY", region: 'us-east-1'
+});
+
+var params = {
+  IdentityPoolId: 'MYIDENTITYPOOLID', /*   required */
+  Logins: { /* required */
+    "login.my.myapp": 'string',
+    /* anotherKey: ... */
+  },
+  IdentityId: null,
+  TokenDuration: 0
+};
+
+cognitoidentity.getOpenIdTokenForDeveloperIdentity(params,function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else console.log(data);               // successful response
+});
